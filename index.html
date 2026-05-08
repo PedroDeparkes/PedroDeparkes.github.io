@@ -381,6 +381,34 @@
     /* WA SVG shorthand */
     .wa-svg{width:22px;height:22px;fill:currentColor;flex-shrink:0}
     .vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;}
+
+    /* LANG + CURRENCY SWITCHER */
+    .nav-controls{position:absolute;right:5%;display:flex;align-items:center;gap:14px;}
+    .lang-switch{display:flex;align-items:center;gap:5px;}
+    .ls-btn{background:none;border:none;color:rgba(255,255,255,.45);font-size:.72rem;font-weight:700;letter-spacing:.08em;cursor:pointer;padding:4px 5px;transition:color .2s;font-family:'Inter',sans-serif;}
+    .ls-btn:hover,.ls-btn.active{color:var(--gold);}
+    .ls-sep{color:rgba(255,255,255,.2);font-size:.65rem;pointer-events:none;}
+    .curr-sel{background:transparent;border:1px solid var(--border);color:var(--gold);font-size:.72rem;font-weight:700;padding:4px 8px;border-radius:4px;cursor:pointer;font-family:'Inter',sans-serif;appearance:none;-webkit-appearance:none;padding-right:20px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23c9a84c'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 6px center;}
+    .curr-sel option{background:#111;color:#fff;}
+    .navbar.scrolled .ls-btn{color:rgba(255,255,255,.5);}
+    .navbar.scrolled .ls-btn.active,.navbar.scrolled .ls-btn:hover{color:var(--gold);}
+    @media(max-width:600px){
+      .nav-controls{position:static;margin-left:auto;}
+      .curr-sel{font-size:.65rem;padding:3px 18px 3px 5px;}
+      .ls-btn{font-size:.65rem;padding:3px 4px;}
+    }
+
+    /* RTL (Arabic) */
+    [dir="rtl"] .navbar{flex-direction:row-reverse;}
+    [dir="rtl"] .nav-controls{left:5%;right:auto;}
+    [dir="rtl"] .why-grid,[dir="rtl"] .about-grid{direction:rtl;}
+    [dir="rtl"] .reason-body{text-align:right;}
+    [dir="rtl"] .reason-list li{flex-direction:row-reverse;}
+    [dir="rtl"] .chips,[dir="rtl"] .parks-grid{direction:rtl;}
+    [dir="rtl"] .comparison-table td:first-child{text-align:right;}
+    [dir="rtl"] .gold-line{margin-right:0;}
+    [dir="rtl"] .contact-info{direction:rtl;}
+    [dir="rtl"] body{font-family:'Segoe UI','Arial',sans-serif;}
   </style>
   <script type="application/ld+json">
   {
@@ -408,6 +436,22 @@
 <!-- NAVBAR -->
 <nav class="navbar">
   <a href="#" class="logo"><img src="Logo-Black.png" alt="K1 Properties"></a>
+  <div class="nav-controls">
+    <a href="#contacts" class="nav-btn" data-i18n="nav_contact">Связаться</a>
+    <div class="lang-switch">
+      <button class="ls-btn active" onclick="setLang('ru')">RU</button>
+      <span class="ls-sep">|</span>
+      <button class="ls-btn" onclick="setLang('en')">EN</button>
+      <span class="ls-sep">|</span>
+      <button class="ls-btn" onclick="setLang('ar')">عربي</button>
+    </div>
+    <select class="curr-sel" onchange="setCurr(this.value)" id="curr-sel">
+      <option value="AED">AED</option>
+      <option value="USD">USD</option>
+      <option value="EUR">EUR</option>
+      <option value="RUB">RUB</option>
+    </select>
+  </div>
 </nav>
 
 
@@ -423,15 +467,15 @@
   <div class="container">
     <div class="why-grid">
       <div>
-        <div class="section-label fade-up">Почему именно Яс?</div>
+        <div class="section-label fade-up" data-i18n="why_label">Почему именно Яс?</div>
         <div class="gold-line fade-up d1"></div>
-        <h2 class="section-title fade-up d1">ПОЧЕМУ ЯС,<br>ПОЧЕМУ СЕЙЧАС?</h2>
-        <p class="section-desc fade-up d2">Остров Яс — самое перспективное направление для инвестиций в Абу-Даби. Комплексно спланированный остров под эгидой правительства на пересечении туризма, культуры и экономического роста.</p>
+        <h2 class="section-title fade-up d1" data-i18n-html="why_title">ПОЧЕМУ ЯС,<br>ПОЧЕМУ СЕЙЧАС?</h2>
+        <p class="section-desc fade-up d2" data-i18n="why_desc">Остров Яс — самое перспективное направление для инвестиций в Абу-Даби. Комплексно спланированный остров под эгидой правительства на пересечении туризма, культуры и экономического роста.</p>
         <div class="why-stats" style="margin-top:36px">
-          <div class="stat-card fade-up d1"><span class="stat-num">25 км²</span><span class="stat-lbl">интегрированной островной экономики</span></div>
-          <div class="stat-card fade-up d2"><span class="stat-num">38M+</span><span class="stat-lbl">визитов в 2024 (+10% год к году)</span></div>
-          <div class="stat-card fade-up d3"><span class="stat-num">90%+</span><span class="stat-lbl">заполняемость отелей и резиденций</span></div>
-          <div class="stat-card fade-up d4"><span class="stat-num">2030</span><span class="stat-lbl">Vision 2030 — государственная программа</span></div>
+          <div class="stat-card fade-up d1"><span class="stat-num">25 км²</span><span class="stat-lbl" data-i18n="stat1_lbl">интегрированной островной экономики</span></div>
+          <div class="stat-card fade-up d2"><span class="stat-num">38M+</span><span class="stat-lbl" data-i18n="stat2_lbl">визитов в 2024 (+10% год к году)</span></div>
+          <div class="stat-card fade-up d3"><span class="stat-num">90%+</span><span class="stat-lbl" data-i18n="stat3_lbl">заполняемость отелей и резиденций</span></div>
+          <div class="stat-card fade-up d4"><span class="stat-num">2030</span><span class="stat-lbl" data-i18n="stat4_lbl">Vision 2030 — государственная программа</span></div>
         </div>
       </div>
       <div class="fade-up d2">
@@ -445,10 +489,10 @@
 <section class="reasons" id="reasons">
   <div class="container">
     <div class="reasons-header">
-      <div class="section-label fade-up">Аргументы</div>
+      <div class="section-label fade-up" data-i18n="reasons_label">Аргументы</div>
       <div class="gold-line fade-up d1" style="margin:0 auto 18px"></div>
-      <h2 class="section-title fade-up d1">5 ПРИЧИН ИНВЕСТИРОВАТЬ</h2>
-      <p class="section-desc fade-up d2" style="margin:0 auto">Ключевые факторы, делающие Yas Island лучшим выбором для инвестора в 2025 году</p>
+      <h2 class="section-title fade-up d1" data-i18n="reasons_title">5 ПРИЧИН ИНВЕСТИРОВАТЬ</h2>
+      <p class="section-desc fade-up d2" style="margin:0 auto" data-i18n="reasons_desc">Ключевые факторы, делающие Yas Island лучшим выбором для инвестора в 2025 году</p>
     </div>
 
     <!-- REASON 1 -->
@@ -459,21 +503,21 @@
           <div class="reason-icon">🗺️</div>
         </div>
         <div class="reason-body">
-          <div class="reason-tag">Причина 1</div>
-          <h3 class="reason-title">Стратегическая локация и транспортная доступность</h3>
+          <div class="reason-tag" data-i18n="r1_tag">Причина 1</div>
+          <h3 class="reason-title" data-i18n="r1_title">Стратегическая локация и транспортная доступность</h3>
           <ul class="reason-list">
-            <li>30 минут до любой точки Большого Абу-Даби</li>
-            <li>Прямой доступ к шоссе SZ (E11)</li>
-            <li>1 час езды до Дубая</li>
-            <li>Blue Highway — морской транзит, соединяющий Абу-Даби</li>
-            <li>Будущая трамвайная линия 4 (2026–2030) → прямой доступ к аэропорту</li>
-            <li>Yas Express — бесплатная премиальная сеть шаттлов для резидентов и туристов</li>
-            <li>Ежедневные бесплатные маршруты в Дубай, Шарджу, Рас-эль-Хайму и Аджман</li>
+            <li data-i18n="r1_li1">30 минут до любой точки Большого Абу-Даби</li>
+            <li data-i18n="r1_li2">Прямой доступ к шоссе SZ (E11)</li>
+            <li data-i18n="r1_li3">1 час езды до Дубая</li>
+            <li data-i18n="r1_li4">Blue Highway — морской транзит, соединяющий Абу-Даби</li>
+            <li data-i18n="r1_li5">Будущая трамвайная линия 4 (2026–2030) → прямой доступ к аэропорту</li>
+            <li data-i18n="r1_li6">Yas Express — бесплатная премиальная сеть шаттлов для резидентов и туристов</li>
+            <li data-i18n="r1_li7">Ежедневные бесплатные маршруты в Дубай, Шарджу, Рас-эль-Хайму и Аджман</li>
           </ul>
           <div class="chips">
-            <span class="chip">30 мин до Абу-Даби</span>
-            <span class="chip">1 час до Дубая</span>
-            <span class="chip">Yas Express бесплатно</span>
+            <span class="chip" data-i18n="r1_chip1">30 мин до Абу-Даби</span>
+            <span class="chip" data-i18n="r1_chip2">1 час до Дубая</span>
+            <span class="chip" data-i18n="r1_chip3">Yas Express бесплатно</span>
           </div>
         </div>
       </div>
@@ -490,20 +534,20 @@
           <div class="reason-icon">🏛️</div>
         </div>
         <div class="reason-body">
-          <div class="reason-tag">Причина 2</div>
-          <h3 class="reason-title">Поддержка государства и безопасность инвестиций</h3>
+          <div class="reason-tag" data-i18n="r2_tag">Причина 2</div>
+          <h3 class="reason-title" data-i18n="r2_title">Поддержка государства и безопасность инвестиций</h3>
           <ul class="reason-list">
-            <li>Проект под эгидой правительства (Vision 2030)</li>
-            <li>25 кв. км интегрированной островной экономики</li>
-            <li>Основные инвесторы: Miral, ADQ, Mubadala</li>
-            <li>Централизованное планирование → контролируемое предложение и гарантия качества</li>
-            <li>Основной бенефициар Туристической стратегии Абу-Даби 2030</li>
-            <li>Крупная медиа-платформа, привлекающая знаменитостей мирового уровня</li>
+            <li data-i18n="r2_li1">Проект под эгидой правительства (Vision 2030)</li>
+            <li data-i18n="r2_li2">25 кв. км интегрированной островной экономики</li>
+            <li data-i18n="r2_li3">Основные инвесторы: Miral, ADQ, Mubadala</li>
+            <li data-i18n="r2_li4">Централизованное планирование → контролируемое предложение и гарантия качества</li>
+            <li data-i18n="r2_li5">Основной бенефициар Туристической стратегии Абу-Даби 2030</li>
+            <li data-i18n="r2_li6">Крупная медиа-платформа, привлекающая знаменитостей мирового уровня</li>
           </ul>
           <div class="chips">
             <span class="chip">Vision 2030</span>
             <span class="chip">Miral + ADQ + Mubadala</span>
-            <span class="chip">Гос. гарантии</span>
+            <span class="chip" data-i18n="r2_chip3">Гос. гарантии</span>
           </div>
         </div>
       </div>
@@ -520,23 +564,23 @@
           <div class="reason-icon">🎡</div>
         </div>
         <div class="reason-body">
-          <div class="reason-tag">Причина 3</div>
-          <h3 class="reason-title">Развлекательный центр мирового уровня</h3>
-          <p style="color:var(--text-muted);font-size:.88rem;margin-bottom:14px">ТОП-10 глобальных направлений для развлечений и отдыха</p>
+          <div class="reason-tag" data-i18n="r3_tag">Причина 3</div>
+          <h3 class="reason-title" data-i18n="r3_title">Развлекательный центр мирового уровня</h3>
+          <p style="color:var(--text-muted);font-size:.88rem;margin-bottom:14px" data-i18n="r3_top10">ТОП-10 глобальных направлений для развлечений и отдыха</p>
           <div class="parks-grid">
             <div class="park-item">🏎️ Ferrari World</div>
             <div class="park-item">🦸 Warner Bros. World</div>
             <div class="park-item">🐬 SeaWorld</div>
             <div class="park-item">💧 Yas Waterworld</div>
-            <div class="park-item">🏟️ Etihad Arena 18 000 мест</div>
-            <div class="park-item">🏎️ Yas Marina Circuit (Ф-1)</div>
-            <div class="park-item">🛍️ Yas Mall — крупнейший ТЦ</div>
-            <div class="park-item">⛳ Yas Links — #1 гольф БВ</div>
+            <div class="park-item" data-i18n-prefix="🏟️ " data-i18n="park5">🏟️ Etihad Arena 18 000 мест</div>
+            <div class="park-item">🏎️ Yas Marina Circuit (F-1)</div>
+            <div class="park-item" data-i18n-prefix="🛍️ " data-i18n="park7">🛍️ Yas Mall — крупнейший ТЦ</div>
+            <div class="park-item" data-i18n-prefix="⛳ " data-i18n="park8">⛳ Yas Links — #1 гольф БВ</div>
           </div>
           <div class="chips" style="margin-top:16px">
-            <span class="chip">200+ ресторанов</span>
-            <span class="chip">4 000 номеров</span>
-            <span class="chip">twofour54 медиазона</span>
+            <span class="chip" data-i18n="r3_chip1">200+ ресторанов</span>
+            <span class="chip" data-i18n="r3_chip2">4 000 номеров</span>
+            <span class="chip" data-i18n="r3_chip3">twofour54 медиазона</span>
           </div>
         </div>
       </div>
@@ -553,20 +597,20 @@
           <div class="reason-icon">📈</div>
         </div>
         <div class="reason-body">
-          <div class="reason-tag">Причина 4</div>
-          <h3 class="reason-title">Высокая доходность и стабильный денежный поток</h3>
+          <div class="reason-tag" data-i18n="r4_tag">Причина 4</div>
+          <h3 class="reason-title" data-i18n="r4_title">Высокая доходность и стабильный денежный поток</h3>
           <ul class="reason-list">
-            <li>Резиденции: доходность от аренды <strong style="color:var(--gold)">6–9%</strong> годовых</li>
-            <li>Рост цен на резиденции: <strong style="color:var(--gold)">+30% год к году</strong> (Q3 2025)</li>
-            <li>Виллы: доходность от аренды <strong style="color:var(--gold)">4,5–6%</strong> годовых</li>
-            <li>Рост цен на виллы: <strong style="color:var(--gold)">+13% год к году</strong> (Q3 2025)</li>
-            <li>Загрузка отелей и резиденций: <strong style="color:var(--gold)">90%+</strong></li>
-            <li>Доля продаж на этапе строительства: <strong style="color:var(--gold)">≈57%</strong> от всех транзакций</li>
+            <li data-i18n-html="r4_li1">Резиденции: доходность от аренды <strong style="color:var(--gold)">6–9%</strong> годовых</li>
+            <li data-i18n-html="r4_li2">Рост цен на резиденции: <strong style="color:var(--gold)">+30% год к году</strong> (Q3 2025)</li>
+            <li data-i18n-html="r4_li3">Виллы: доходность от аренды <strong style="color:var(--gold)">4,5–6%</strong> годовых</li>
+            <li data-i18n-html="r4_li4">Рост цен на виллы: <strong style="color:var(--gold)">+13% год к году</strong> (Q3 2025)</li>
+            <li data-i18n-html="r4_li5">Загрузка отелей и резиденций: <strong style="color:var(--gold)">90%+</strong></li>
+            <li data-i18n-html="r4_li6">Доля продаж на этапе строительства: <strong style="color:var(--gold)">≈57%</strong> от всех транзакций</li>
           </ul>
           <div class="chips">
-            <span class="chip">+30% рост цен</span>
-            <span class="chip">6–9% доходность</span>
-            <span class="chip">90%+ заполняемость</span>
+            <span class="chip" data-i18n="r4_chip1">+30% рост цен</span>
+            <span class="chip" data-i18n="r4_chip2">6–9% доходность</span>
+            <span class="chip" data-i18n="r4_chip3">90%+ заполняемость</span>
           </div>
         </div>
       </div>
@@ -583,20 +627,20 @@
           <div class="reason-icon">🚀</div>
         </div>
         <div class="reason-body">
-          <div class="reason-tag">Причина 5</div>
-          <h3 class="reason-title">Масштабные катализаторы роста стоимости (2025–2030)</h3>
+          <div class="reason-tag" data-i18n="r5_tag">Причина 5</div>
+          <h3 class="reason-title" data-i18n="r5_title">Масштабные катализаторы роста стоимости (2025–2030)</h3>
           <ul class="reason-list">
-            <li>Туристический рост: с 25 млн до <strong style="color:var(--gold)">39,3 млн</strong> посетителей к 2030</li>
-            <li><strong>Harry Potter Land</strong> в Warner Bros. (2027–2028)</li>
-            <li><strong>Disney Abu Dhabi</strong> — анонсирован в мае 2025</li>
-            <li><strong>Sphere Abu Dhabi</strong> — арена на 20 000 мест</li>
-            <li>Казино — заявка подана, ожидается одобрение правительства</li>
-            <li>E-Sports Island — первый в мире специализированный игровой район</li>
-            <li>Yas Creative Hub → 16 000 новых рабочих мест</li>
+            <li data-i18n-html="r5_li1">Туристический рост: с 25 млн до <strong style="color:var(--gold)">39,3 млн</strong> посетителей к 2030</li>
+            <li data-i18n-html="r5_li2"><strong>Harry Potter Land</strong> в Warner Bros. (2027–2028)</li>
+            <li data-i18n-html="r5_li3"><strong>Disney Abu Dhabi</strong> — анонсирован в мае 2025</li>
+            <li data-i18n-html="r5_li4"><strong>Sphere Abu Dhabi</strong> — арена на 20 000 мест</li>
+            <li data-i18n="r5_li5">Казино — заявка подана, ожидается одобрение правительства</li>
+            <li data-i18n="r5_li6">E-Sports Island — первый в мире специализированный игровой район</li>
+            <li data-i18n="r5_li7">Yas Creative Hub → 16 000 новых рабочих мест</li>
           </ul>
           <div class="chips">
-            <span class="chip">Disney 2025</span>
-            <span class="chip">Harry Potter 2027</span>
+            <span class="chip" data-i18n="r5_chip1">Disney 2025</span>
+            <span class="chip" data-i18n="r5_chip2">Harry Potter 2027</span>
             <span class="chip">Sphere Abu Dhabi</span>
           </div>
         </div>
@@ -611,14 +655,14 @@
 <!-- YIELDS -->
 <section class="yields-section">
   <div class="container">
-    <div class="section-label fade-up">Доходность 2025</div>
+    <div class="section-label fade-up" data-i18n="yields_label">Доходность 2025</div>
     <div class="gold-line fade-up d1"></div>
-    <h2 class="section-title fade-up d1">ПОКАЗАТЕЛИ РЫНКА</h2>
-    <p class="section-desc fade-up d2">Статистика острова Яс по итогам 2025 года</p>
+    <h2 class="section-title fade-up d1" data-i18n="yields_title">ПОКАЗАТЕЛИ РЫНКА</h2>
+    <p class="section-desc fade-up d2" data-i18n="yields_desc">Статистика острова Яс по итогам 2025 года</p>
     <div class="yields-grid">
-      <div class="yield-card fade-up d1"><span class="yield-val">6–9%</span><div class="yield-title">Доходность резиденций</div><div class="yield-desc">Годовая арендная доходность апартаментов</div></div>
-      <div class="yield-card featured fade-up d2"><span class="yield-val">+30%</span><div class="yield-title">Рост цен: резиденции</div><div class="yield-desc">Прирост стоимости год к году, Q3 2025</div></div>
-      <div class="yield-card fade-up d3"><span class="yield-val">4.5–6%</span><div class="yield-title">Доходность вилл</div><div class="yield-desc">Годовая арендная доходность вилл на острове</div></div>
+      <div class="yield-card fade-up d1"><span class="yield-val">6–9%</span><div class="yield-title" data-i18n="yc1_title">Доходность резиденций</div><div class="yield-desc" data-i18n="yc1_desc">Годовая арендная доходность апартаментов</div></div>
+      <div class="yield-card featured fade-up d2"><span class="yield-val">+30%</span><div class="yield-title" data-i18n="yc2_title">Рост цен: резиденции</div><div class="yield-desc" data-i18n="yc2_desc">Прирост стоимости год к году, Q3 2025</div></div>
+      <div class="yield-card fade-up d3"><span class="yield-val">4.5–6%</span><div class="yield-title" data-i18n="yc3_title">Доходность вилл</div><div class="yield-desc" data-i18n="yc3_desc">Годовая арендная доходность вилл на острове</div></div>
     </div>
     <div style="margin-top:48px" class="fade-up">
       <img src="images/page_19.jpg" loading="lazy" class="slide-img" alt="Цены на аренду" onclick="openLightbox(18)">
@@ -629,26 +673,26 @@
 <!-- COMPARISON -->
 <section class="comparison">
   <div class="container">
-    <div class="section-label fade-up">Аналитика</div>
+    <div class="section-label fade-up" data-i18n="comp_label">Аналитика</div>
     <div class="gold-line fade-up d1"></div>
-    <h2 class="section-title fade-up d1">ДУБАЙ VS АБУ-ДАБИ</h2>
-    <p class="section-desc fade-up d2">Сравнение ключевых рыночных показателей двух эмиратов</p>
+    <h2 class="section-title fade-up d1" data-i18n="comp_title">ДУБАЙ VS АБУ-ДАБИ</h2>
+    <p class="section-desc fade-up d2" data-i18n="comp_desc">Сравнение ключевых рыночных показателей двух эмиратов</p>
     <div class="comparison-table-wrap fade-up">
       <table class="comparison-table">
         <thead>
           <tr>
-            <th style="text-align:left">Показатель</th>
-            <th class="col-dxb">🇦🇪 Дубай</th>
-            <th class="col-ad">✦ Абу-Даби</th>
+            <th style="text-align:left" data-i18n="comp_th1">Показатель</th>
+            <th class="col-dxb" data-i18n="comp_th2">🇦🇪 Дубай</th>
+            <th class="col-ad" data-i18n="comp_th3">✦ Абу-Даби</th>
           </tr>
         </thead>
         <tbody>
-          <tr><td>Продажи off-plan (2021–2024)</td><td>212 000</td><td class="hl">22 000</td></tr>
-          <tr><td>Продажи off-plan (Q1–июль 2025)</td><td>66 029</td><td class="hl">4 307</td></tr>
-          <tr><td>Текущая численность населения</td><td>4 млн</td><td class="hl">4,14 млн</td></tr>
-          <tr><td>Прирост населения за год</td><td>+169 000</td><td class="hl">+288 000</td></tr>
-          <tr><td>Прирост населения (%)</td><td>+4,5%</td><td class="hl">+7,5%</td></tr>
-          <tr><td>Новых резидентов на 1 новостройку (2024)</td><td>1,5</td><td class="hl">27</td></tr>
+          <tr><td data-i18n="comp_r1">Продажи off-plan (2021–2024)</td><td>212 000</td><td class="hl">22 000</td></tr>
+          <tr><td data-i18n="comp_r2">Продажи off-plan (Q1–июль 2025)</td><td>66 029</td><td class="hl">4 307</td></tr>
+          <tr><td data-i18n="comp_r3">Текущая численность населения</td><td>4 млн</td><td class="hl">4,14 млн</td></tr>
+          <tr><td data-i18n="comp_r4">Прирост населения за год</td><td>+169 000</td><td class="hl">+288 000</td></tr>
+          <tr><td data-i18n="comp_r5">Прирост населения (%)</td><td>+4,5%</td><td class="hl">+7,5%</td></tr>
+          <tr><td data-i18n="comp_r6">Новых резидентов на 1 новостройку (2024)</td><td>1,5</td><td class="hl">27</td></tr>
         </tbody>
       </table>
     </div>
@@ -666,16 +710,16 @@
         <img src="images/page_26.jpg" loading="lazy" class="slide-img" alt="K1 Properties" style="border-radius:14px" onclick="openLightbox(25)">
       </div>
       <div>
-        <div class="section-label fade-up">О компании</div>
+        <div class="section-label fade-up" data-i18n="about_label">О компании</div>
         <div class="gold-line fade-up d1"></div>
         <h2 class="section-title fade-up d1">K1 PROPERTIES</h2>
-        <p class="section-desc fade-up d2">Исключительное агентство, специализирующееся на стратегическом управлении инвестициями в сегменте премиальной недвижимости.</p>
-        <p class="section-desc fade-up d3" style="margin-top:14px">Мы не просто подбираем недвижимость — мы создаём эффективные инвестиционные стратегии для максимальной прибыльности активов.</p>
+        <p class="section-desc fade-up d2" data-i18n="about_desc1">Исключительное агентство, специализирующееся на стратегическом управлении инвестициями в сегменте премиальной недвижимости.</p>
+        <p class="section-desc fade-up d3" style="margin-top:14px" data-i18n="about_desc2">Мы не просто подбираем недвижимость — мы создаём эффективные инвестиционные стратегии для максимальной прибыльности активов.</p>
         <div class="services fade-up d4">
-          <div class="svc"><div class="svc-num">01</div><div class="svc-name">Сделки под ключ</div></div>
-          <div class="svc"><div class="svc-num">02</div><div class="svc-name">Инвестиционный менеджмент</div></div>
-          <div class="svc"><div class="svc-num">03</div><div class="svc-name">Ипотечные инструменты</div></div>
-          <div class="svc"><div class="svc-num">04</div><div class="svc-name">Персональный сервис</div></div>
+          <div class="svc"><div class="svc-num">01</div><div class="svc-name" data-i18n="svc1">Сделки под ключ</div></div>
+          <div class="svc"><div class="svc-num">02</div><div class="svc-name" data-i18n="svc2">Инвестиционный менеджмент</div></div>
+          <div class="svc"><div class="svc-num">03</div><div class="svc-name" data-i18n="svc3">Ипотечные инструменты</div></div>
+          <div class="svc"><div class="svc-num">04</div><div class="svc-name" data-i18n="svc4">Персональный сервис</div></div>
         </div>
       </div>
     </div>
@@ -686,10 +730,10 @@
 <section class="gallery" id="gallery">
   <div class="container">
     <div class="gallery-header">
-      <div class="section-label fade-up">Полная презентация</div>
+      <div class="section-label fade-up" data-i18n="gallery_label">Полная презентация</div>
       <div class="gold-line fade-up d1"></div>
-      <h2 class="section-title fade-up d1">ВСЕ СЛАЙДЫ</h2>
-      <p class="section-desc fade-up d2">29 страниц оригинальной брошюры — нажмите на любой слайд для просмотра</p>
+      <h2 class="section-title fade-up d1" data-i18n="gallery_title">ВСЕ СЛАЙДЫ</h2>
+      <p class="section-desc fade-up d2" data-i18n="gallery_desc">29 страниц оригинальной брошюры — нажмите на любой слайд для просмотра</p>
     </div>
     <div class="slides-grid">
       <div class="slide-thumb fade-up" onclick="openLightbox(0)"><img src="images/page_1.jpg" alt="Слайд 1" loading="lazy"><span class="slide-num">01</span></div>
@@ -728,18 +772,18 @@
 <!-- CONTACTS -->
 <section class="contacts" id="contacts">
   <div class="container">
-    <div class="section-label fade-up">Контакты</div>
+    <div class="section-label fade-up" data-i18n="contacts_label">Контакты</div>
     <div class="gold-line fade-up d1" style="margin:0 auto 18px"></div>
-    <h2 class="section-title fade-up d1" style="margin-bottom:14px">ПОЛУЧИТЕ ДЕТАЛЬНУЮ ПРЕЗЕНТАЦИЮ</h2>
-    <p class="section-desc fade-up d2" style="margin:0 auto 44px">Планировки, расчёт инвестиционной доходности и персональная консультация — напишите нам прямо сейчас</p>
+    <h2 class="section-title fade-up d1" style="margin-bottom:14px" data-i18n="contacts_title">ПОЛУЧИТЕ ДЕТАЛЬНУЮ ПРЕЗЕНТАЦИЮ</h2>
+    <p class="section-desc fade-up d2" style="margin:0 auto 44px" data-i18n="contacts_desc">Планировки, расчёт инвестиционной доходности и персональная консультация — напишите нам прямо сейчас</p>
     <div class="contacts-ctas fade-up d2">
       <a href="https://wa.me/971585492599?text=Здравствуйте!%20Хочу%20получить%20детальную%20презентацию%20по%20острову%20Яс." class="btn-wa-lg green" target="_blank" rel="noopener">
         <svg style="width:24px;height:24px;fill:#fff" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-        WhatsApp — Юлия
+        <span data-i18n="wa_julia">WhatsApp — Юлия</span>
       </a>
       <a href="https://wa.me/971501192377?text=Здравствуйте!%20Хочу%20получить%20детальную%20презентацию%20по%20острову%20Яс." class="btn-wa-lg outline" target="_blank" rel="noopener">
         <svg style="width:24px;height:24px;fill:#25d366" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-        WhatsApp — Валерия
+        <span data-i18n="wa_valeria">WhatsApp — Валерия</span>
       </a>
     </div>
     <div class="contact-info fade-up">
@@ -753,7 +797,7 @@
 <!-- FOOTER -->
 <footer>
   <a href="#" class="logo"><img src="Logo-Black.png" alt="K1 Properties" style="height:36px;filter:invert(1)"></a>
-  <p>© 2025 K1 Properties · Boulevard Plaza Tower 1, Downtown Dubai, UAE</p>
+  <p data-i18n="footer_copy">© 2025 K1 Properties · Boulevard Plaza Tower 1, Downtown Dubai, UAE</p>
 </footer>
 
 <!-- LIGHTBOX -->
@@ -761,15 +805,257 @@
   <button class="lb-close" onclick="closeLightbox()">✕</button>
   <img class="lb-img" id="lb-img" src="" alt="">
   <div class="lb-nav">
-    <button class="lb-btn" onclick="lbPrev()">← Назад</button>
+    <button class="lb-btn" onclick="lbPrev()" data-i18n="lb_prev">← Назад</button>
     <span class="lb-counter" id="lb-counter">1 / 29</span>
-    <button class="lb-btn" onclick="lbNext()">Вперёд →</button>
+    <button class="lb-btn" onclick="lbNext()" data-i18n="lb_next">Вперёд →</button>
   </div>
 </div>
 
 
 <script>
 
+  // ─── TRANSLATIONS ───────────────────────────────────────────────
+  const T = {
+    ru: {
+      nav_contact:'Связаться',
+      why_label:'Почему именно Яс?', why_title:'ПОЧЕМУ ЯС,<br>ПОЧЕМУ СЕЙЧАС?',
+      why_desc:'Остров Яс — самое перспективное направление для инвестиций в Абу-Даби. Комплексно спланированный остров под эгидой правительства на пересечении туризма, культуры и экономического роста.',
+      stat1_lbl:'интегрированной островной экономики', stat2_lbl:'визитов в 2024 (+10% год к году)',
+      stat3_lbl:'заполняемость отелей и резиденций', stat4_lbl:'Vision 2030 — государственная программа',
+      reasons_label:'Аргументы', reasons_title:'5 ПРИЧИН ИНВЕСТИРОВАТЬ',
+      reasons_desc:'Ключевые факторы, делающие Yas Island лучшим выбором для инвестора в 2025 году',
+      r1_tag:'Причина 1', r1_title:'Стратегическая локация и транспортная доступность',
+      r1_li1:'30 минут до любой точки Большого Абу-Даби', r1_li2:'Прямой доступ к шоссе SZ (E11)',
+      r1_li3:'1 час езды до Дубая', r1_li4:'Blue Highway — морской транзит, соединяющий Абу-Даби',
+      r1_li5:'Будущая трамвайная линия 4 (2026–2030) → прямой доступ к аэропорту',
+      r1_li6:'Yas Express — бесплатная премиальная сеть шаттлов для резидентов и туристов',
+      r1_li7:'Ежедневные бесплатные маршруты в Дубай, Шарджу, Рас-эль-Хайму и Аджман',
+      r1_chip1:'30 мин до Абу-Даби', r1_chip2:'1 час до Дубая', r1_chip3:'Yas Express бесплатно',
+      r2_tag:'Причина 2', r2_title:'Поддержка государства и безопасность инвестиций',
+      r2_li1:'Проект под эгидой правительства (Vision 2030)', r2_li2:'25 кв. км интегрированной островной экономики',
+      r2_li3:'Основные инвесторы: Miral, ADQ, Mubadala',
+      r2_li4:'Централизованное планирование → контролируемое предложение и гарантия качества',
+      r2_li5:'Основной бенефициар Туристической стратегии Абу-Даби 2030',
+      r2_li6:'Крупная медиа-платформа, привлекающая знаменитостей мирового уровня',
+      r2_chip3:'Гос. гарантии',
+      r3_tag:'Причина 3', r3_title:'Развлекательный центр мирового уровня',
+      r3_top10:'ТОП-10 глобальных направлений для развлечений и отдыха',
+      park5:'🏟️ Etihad Arena 18 000 мест', park7:'🛍️ Yas Mall — крупнейший ТЦ', park8:'⛳ Yas Links — #1 гольф БВ',
+      r3_chip1:'200+ ресторанов', r3_chip2:'4 000 номеров', r3_chip3:'twofour54 медиазона',
+      r4_tag:'Причина 4', r4_title:'Высокая доходность и стабильный денежный поток',
+      r4_li1:'Резиденции: доходность от аренды <strong style="color:var(--gold)">6–9%</strong> годовых',
+      r4_li2:'Рост цен на резиденции: <strong style="color:var(--gold)">+30% год к году</strong> (Q3 2025)',
+      r4_li3:'Виллы: доходность от аренды <strong style="color:var(--gold)">4,5–6%</strong> годовых',
+      r4_li4:'Рост цен на виллы: <strong style="color:var(--gold)">+13% год к году</strong> (Q3 2025)',
+      r4_li5:'Загрузка отелей и резиденций: <strong style="color:var(--gold)">90%+</strong>',
+      r4_li6:'Доля продаж на этапе строительства: <strong style="color:var(--gold)">≈57%</strong> от всех транзакций',
+      r4_chip1:'+30% рост цен', r4_chip2:'6–9% доходность', r4_chip3:'90%+ заполняемость',
+      r5_tag:'Причина 5', r5_title:'Масштабные катализаторы роста стоимости (2025–2030)',
+      r5_li1:'Туристический рост: с 25 млн до <strong style="color:var(--gold)">39,3 млн</strong> посетителей к 2030',
+      r5_li2:'<strong>Harry Potter Land</strong> в Warner Bros. (2027–2028)',
+      r5_li3:'<strong>Disney Abu Dhabi</strong> — анонсирован в мае 2025',
+      r5_li4:'<strong>Sphere Abu Dhabi</strong> — арена на 20 000 мест',
+      r5_li5:'Казино — заявка подана, ожидается одобрение правительства',
+      r5_li6:'E-Sports Island — первый в мире специализированный игровой район',
+      r5_li7:'Yas Creative Hub → 16 000 новых рабочих мест',
+      r5_chip1:'Disney 2025', r5_chip2:'Harry Potter 2027',
+      yields_label:'Доходность 2025', yields_title:'ПОКАЗАТЕЛИ РЫНКА',
+      yields_desc:'Статистика острова Яс по итогам 2025 года',
+      yc1_title:'Доходность резиденций', yc1_desc:'Годовая арендная доходность апартаментов',
+      yc2_title:'Рост цен: резиденции', yc2_desc:'Прирост стоимости год к году, Q3 2025',
+      yc3_title:'Доходность вилл', yc3_desc:'Годовая арендная доходность вилл на острове',
+      comp_label:'Аналитика', comp_title:'ДУБАЙ VS АБУ-ДАБИ',
+      comp_desc:'Сравнение ключевых рыночных показателей двух эмиратов',
+      comp_th1:'Показатель', comp_th2:'🇦🇪 Дубай', comp_th3:'✦ Абу-Даби',
+      comp_r1:'Продажи off-plan (2021–2024)', comp_r2:'Продажи off-plan (Q1–июль 2025)',
+      comp_r3:'Текущая численность населения', comp_r4:'Прирост населения за год',
+      comp_r5:'Прирост населения (%)', comp_r6:'Новых резидентов на 1 новостройку (2024)',
+      about_label:'О компании', about_title:'K1 PROPERTIES',
+      about_desc1:'Исключительное агентство, специализирующееся на стратегическом управлении инвестициями в сегменте премиальной недвижимости.',
+      about_desc2:'Мы не просто подбираем недвижимость — мы создаём эффективные инвестиционные стратегии для максимальной прибыльности активов.',
+      svc1:'Сделки под ключ', svc2:'Инвестиционный менеджмент', svc3:'Ипотечные инструменты', svc4:'Персональный сервис',
+      gallery_label:'Полная презентация', gallery_title:'ВСЕ СЛАЙДЫ',
+      gallery_desc:'29 страниц оригинальной брошюры — нажмите на любой слайд для просмотра',
+      contacts_label:'Контакты', contacts_title:'ПОЛУЧИТЕ ДЕТАЛЬНУЮ ПРЕЗЕНТАЦИЮ',
+      contacts_desc:'Планировки, расчёт инвестиционной доходности и персональная консультация — напишите нам прямо сейчас',
+      wa_julia:'WhatsApp — Юлия', wa_valeria:'WhatsApp — Валерия',
+      lb_prev:'← Назад', lb_next:'Вперёд →',
+      footer_copy:'© 2025 K1 Properties · Boulevard Plaza Tower 1, Downtown Dubai, UAE',
+      curr_note:'Курс: 1 AED ≈'
+    },
+    en: {
+      nav_contact:'Contact',
+      why_label:'Why Yas?', why_title:'WHY YAS,<br>WHY NOW?',
+      why_desc:'Yas Island is the most promising investment destination in Abu Dhabi. A comprehensively planned government-backed island at the intersection of tourism, culture, and economic growth.',
+      stat1_lbl:'integrated island economy', stat2_lbl:'visits in 2024 (+10% YoY)',
+      stat3_lbl:'hotel & residence occupancy', stat4_lbl:'Vision 2030 — government program',
+      reasons_label:'Key Arguments', reasons_title:'5 REASONS TO INVEST',
+      reasons_desc:'Key factors making Yas Island the best choice for investors in 2025',
+      r1_tag:'Reason 1', r1_title:'Strategic Location & Connectivity',
+      r1_li1:'30 minutes to any point in Greater Abu Dhabi', r1_li2:'Direct access to SZ Highway (E11)',
+      r1_li3:'1 hour drive to Dubai', r1_li4:'Blue Highway — maritime transit connecting Abu Dhabi',
+      r1_li5:'Future Tram Line 4 (2026–2030) → direct airport access',
+      r1_li6:'Yas Express — free premium shuttle network for residents & tourists',
+      r1_li7:'Daily free routes to Dubai, Sharjah, Ras Al Khaimah and Ajman',
+      r1_chip1:'30 min to Abu Dhabi', r1_chip2:'1 hour to Dubai', r1_chip3:'Yas Express free',
+      r2_tag:'Reason 2', r2_title:'Government Support & Investment Security',
+      r2_li1:'Government-backed project (Vision 2030)', r2_li2:'25 sq. km integrated island economy',
+      r2_li3:'Key investors: Miral, ADQ, Mubadala',
+      r2_li4:'Centralised planning → controlled supply and quality assurance',
+      r2_li5:'Primary beneficiary of Abu Dhabi Tourism Strategy 2030',
+      r2_li6:'Major media platform attracting world-class celebrities',
+      r2_chip3:'Gov. guarantees',
+      r3_tag:'Reason 3', r3_title:'World-Class Entertainment Hub',
+      r3_top10:'TOP-10 global entertainment & leisure destinations',
+      park5:'🏟️ Etihad Arena — 18,000 seats', park7:'🛍️ Yas Mall — largest mall in AD', park8:'⛳ Yas Links — #1 Golf in ME',
+      r3_chip1:'200+ restaurants', r3_chip2:'4,000 hotel rooms', r3_chip3:'twofour54 media zone',
+      r4_tag:'Reason 4', r4_title:'High Yields & Stable Cash Flow',
+      r4_li1:'Residences: rental yield <strong style="color:var(--gold)">6–9%</strong> per annum',
+      r4_li2:'Residence price growth: <strong style="color:var(--gold)">+30% YoY</strong> (Q3 2025)',
+      r4_li3:'Villas: rental yield <strong style="color:var(--gold)">4.5–6%</strong> per annum',
+      r4_li4:'Villa price growth: <strong style="color:var(--gold)">+13% YoY</strong> (Q3 2025)',
+      r4_li5:'Hotel & residence occupancy: <strong style="color:var(--gold)">90%+</strong>',
+      r4_li6:'Off-plan sales share: <strong style="color:var(--gold)">≈57%</strong> of all transactions',
+      r4_chip1:'+30% price growth', r4_chip2:'6–9% yield', r4_chip3:'90%+ occupancy',
+      r5_tag:'Reason 5', r5_title:'Major Value Growth Catalysts (2025–2030)',
+      r5_li1:'Tourism growth: from 25M to <strong style="color:var(--gold)">39.3M</strong> visitors by 2030',
+      r5_li2:'<strong>Harry Potter Land</strong> at Warner Bros. (2027–2028)',
+      r5_li3:'<strong>Disney Abu Dhabi</strong> — announced May 2025',
+      r5_li4:'<strong>Sphere Abu Dhabi</strong> — 20,000-seat arena',
+      r5_li5:'Casino — application submitted, awaiting government approval',
+      r5_li6:"E-Sports Island — world's first dedicated gaming district",
+      r5_li7:'Yas Creative Hub → 16,000 new jobs',
+      r5_chip1:'Disney 2025', r5_chip2:'Harry Potter 2027',
+      yields_label:'Yields 2025', yields_title:'MARKET INDICATORS',
+      yields_desc:'Yas Island statistics for 2025',
+      yc1_title:'Residence Yield', yc1_desc:'Annual rental yield on apartments',
+      yc2_title:'Price Growth: Residences', yc2_desc:'Year-on-year appreciation, Q3 2025',
+      yc3_title:'Villa Yield', yc3_desc:'Annual rental yield on island villas',
+      comp_label:'Analytics', comp_title:'DUBAI VS ABU DHABI',
+      comp_desc:'Key market metrics comparison between the two emirates',
+      comp_th1:'Metric', comp_th2:'🇦🇪 Dubai', comp_th3:'✦ Abu Dhabi',
+      comp_r1:'Off-plan sales (2021–2024)', comp_r2:'Off-plan sales (Q1–July 2025)',
+      comp_r3:'Current population', comp_r4:'Annual population growth',
+      comp_r5:'Population growth (%)', comp_r6:'New residents per unit sold (2024)',
+      about_label:'About Us', about_title:'K1 PROPERTIES',
+      about_desc1:'An exclusive agency specialising in strategic investment management in the premium real estate segment.',
+      about_desc2:"We don't just select properties — we build effective investment strategies to maximise asset profitability.",
+      svc1:'Turnkey Deals', svc2:'Investment Management', svc3:'Mortgage Solutions', svc4:'Personal Service',
+      gallery_label:'Full Presentation', gallery_title:'ALL SLIDES',
+      gallery_desc:'29 pages of the original brochure — click any slide to view',
+      contacts_label:'Contacts', contacts_title:'GET A DETAILED PRESENTATION',
+      contacts_desc:'Floor plans, investment return calculations and personal consultation — contact us now',
+      wa_julia:'WhatsApp — Julia', wa_valeria:'WhatsApp — Valeria',
+      lb_prev:'← Prev', lb_next:'Next →',
+      footer_copy:'© 2025 K1 Properties · Boulevard Plaza Tower 1, Downtown Dubai, UAE',
+      curr_note:'Rate: 1 AED ≈'
+    },
+    ar: {
+      nav_contact:'اتصل بنا',
+      why_label:'لماذا جزيرة ياس؟', why_title:'لماذا ياس؟<br>لماذا الآن؟',
+      why_desc:'جزيرة ياس هي الوجهة الاستثمارية الأكثر جاذبية في أبوظبي. جزيرة مخططة بشكل شامل بدعم حكومي عند تقاطع السياحة والثقافة والنمو الاقتصادي.',
+      stat1_lbl:'اقتصاد جزيرة متكامل', stat2_lbl:'زيارة في 2024 (+10% سنوياً)',
+      stat3_lbl:'إشغال الفنادق والمساكن', stat4_lbl:'رؤية 2030 — البرنامج الحكومي',
+      reasons_label:'الأسباب الرئيسية', reasons_title:'5 أسباب للاستثمار',
+      reasons_desc:'العوامل الرئيسية التي تجعل جزيرة ياس الخيار الأمثل للمستثمرين في 2025',
+      r1_tag:'السبب الأول', r1_title:'الموقع الاستراتيجي وسهولة الوصول',
+      r1_li1:'30 دقيقة إلى أي نقطة في إمارة أبوظبي الكبرى', r1_li2:'وصول مباشر إلى طريق الشيخ زايد (E11)',
+      r1_li3:'ساعة واحدة بالسيارة إلى دبي', r1_li4:'الطريق الأزرق — عبور بحري يربط أبوظبي',
+      r1_li5:'خط ترام مستقبلي 4 (2026–2030) ← وصول مباشر إلى المطار',
+      r1_li6:'ياس إكسبريس — شبكة حافلات مكوكية مجانية فاخرة للمقيمين والسياح',
+      r1_li7:'مسارات مجانية يومية إلى دبي والشارقة ورأس الخيمة وعجمان',
+      r1_chip1:'30 دقيقة إلى أبوظبي', r1_chip2:'ساعة إلى دبي', r1_chip3:'ياس إكسبريس مجاني',
+      r2_tag:'السبب الثاني', r2_title:'الدعم الحكومي وأمان الاستثمار',
+      r2_li1:'مشروع حكومي (رؤية 2030)', r2_li2:'25 كم² اقتصاد جزيرة متكامل',
+      r2_li3:'المستثمرون الرئيسيون: ميرال، ADQ، مبادلة',
+      r2_li4:'تخطيط مركزي → عرض متحكم به وضمان الجودة',
+      r2_li5:'المستفيد الرئيسي من استراتيجية السياحة في أبوظبي 2030',
+      r2_li6:'منصة إعلامية كبرى تستقطب المشاهير من حول العالم',
+      r2_chip3:'ضمانات حكومية',
+      r3_tag:'السبب الثالث', r3_title:'مركز ترفيهي عالمي المستوى',
+      r3_top10:'أفضل 10 وجهات ترفيهية عالمياً',
+      park5:'🏟️ إتحاد أرينا — 18,000 مقعد', park7:'🛍️ ياس مول — أكبر مركز تجاري في أبوظبي', park8:'⛳ ياس لينكس — #1 غولف في الشرق الأوسط',
+      r3_chip1:'+200 مطعم', r3_chip2:'4,000 غرفة فندقية', r3_chip3:'المنطقة الإعلامية twofour54',
+      r4_tag:'السبب الرابع', r4_title:'عوائد مرتفعة وتدفق نقدي مستقر',
+      r4_li1:'المساكن: عائد إيجاري <strong style="color:var(--gold)">6–9%</strong> سنوياً',
+      r4_li2:'نمو أسعار المساكن: <strong style="color:var(--gold)">+30% سنوياً</strong> (Q3 2025)',
+      r4_li3:'الفلل: عائد إيجاري <strong style="color:var(--gold)">4.5–6%</strong> سنوياً',
+      r4_li4:'نمو أسعار الفلل: <strong style="color:var(--gold)">+13% سنوياً</strong> (Q3 2025)',
+      r4_li5:'إشغال الفنادق والمساكن: <strong style="color:var(--gold)">90%+</strong>',
+      r4_li6:'حصة مبيعات على الخارطة: <strong style="color:var(--gold)">≈57%</strong> من جميع المعاملات',
+      r4_chip1:'+30% نمو الأسعار', r4_chip2:'عائد 6–9%', r4_chip3:'إشغال 90%+',
+      r5_tag:'السبب الخامس', r5_title:'محفزات نمو القيمة الكبرى (2025–2030)',
+      r5_li1:'نمو السياحة: من 25 مليون إلى <strong style="color:var(--gold)">39.3 مليون</strong> زائر بحلول 2030',
+      r5_li2:'<strong>هاري بوتر لاند</strong> في Warner Bros. (2027–2028)',
+      r5_li3:'<strong>ديزني أبوظبي</strong> — أُعلن عنه في مايو 2025',
+      r5_li4:'<strong>سفير أبوظبي</strong> — ساحة بسعة 20,000 مقعد',
+      r5_li5:'الكازينو — تقدمت بالطلب، في انتظار موافقة الحكومة',
+      r5_li6:'جزيرة الرياضات الإلكترونية — أول حي ألعاب متخصص في العالم',
+      r5_li7:'ياس كريتيف هب → 16,000 وظيفة جديدة',
+      r5_chip1:'ديزني 2025', r5_chip2:'هاري بوتر 2027',
+      yields_label:'العوائد 2025', yields_title:'مؤشرات السوق',
+      yields_desc:'إحصائيات جزيرة ياس لعام 2025',
+      yc1_title:'عائد المساكن', yc1_desc:'العائد الإيجاري السنوي للشقق',
+      yc2_title:'نمو الأسعار: المساكن', yc2_desc:'التقدير السنوي، Q3 2025',
+      yc3_title:'عائد الفلل', yc3_desc:'العائد الإيجاري السنوي للفلل في الجزيرة',
+      comp_label:'التحليلات', comp_title:'دبي مقابل أبوظبي',
+      comp_desc:'مقارنة المؤشرات الرئيسية للسوق بين الإمارتين',
+      comp_th1:'المؤشر', comp_th2:'🇦🇪 دبي', comp_th3:'✦ أبوظبي',
+      comp_r1:'مبيعات على الخارطة (2021–2024)', comp_r2:'مبيعات على الخارطة (Q1–يوليو 2025)',
+      comp_r3:'عدد السكان الحالي', comp_r4:'النمو السكاني السنوي',
+      comp_r5:'النمو السكاني (%)', comp_r6:'مقيم جديد لكل وحدة مباعة (2024)',
+      about_label:'عن الشركة', about_title:'K1 PROPERTIES',
+      about_desc1:'وكالة حصرية متخصصة في الإدارة الاستثمارية الاستراتيجية في قطاع العقارات الفاخرة.',
+      about_desc2:'لا نكتفي باختيار العقارات — بل نبني استراتيجيات استثمارية فعّالة لتحقيق أقصى ربحية للأصول.',
+      svc1:'صفقات متكاملة', svc2:'إدارة الاستثمار', svc3:'حلول التمويل العقاري', svc4:'خدمة شخصية',
+      gallery_label:'العرض الكامل', gallery_title:'جميع الشرائح',
+      gallery_desc:'29 صفحة من الكتيب الأصلي — انقر على أي شريحة للعرض',
+      contacts_label:'اتصل بنا', contacts_title:'احصل على عرض تفصيلي',
+      contacts_desc:'مخططات الطوابق وحسابات العائد الاستثماري والاستشارة الشخصية — تواصل معنا الآن',
+      wa_julia:'واتساب — يوليا', wa_valeria:'واتساب — فاليريا',
+      lb_prev:'→ السابق', lb_next:'التالي ←',
+      footer_copy:'© 2025 K1 Properties · برج بلفار بلازا 1، وسط مدينة دبي، الإمارات',
+      curr_note:'السعر: 1 درهم ≈'
+    }
+  };
+
+  // ─── CURRENCY RATES (base: AED) ─────────────────────────────────
+  const RATES = { AED:1, USD:0.272, EUR:0.250, RUB:24.9 };
+  let currentLang = localStorage.getItem('lang') || 'ru';
+  let currentCurr = localStorage.getItem('curr') || 'AED';
+
+  function setLang(lang) {
+    currentLang = lang;
+    localStorage.setItem('lang', lang);
+    document.documentElement.lang = lang;
+    document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+    const dict = T[lang];
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.dataset.i18n;
+      if (dict[key] !== undefined) el.textContent = dict[key];
+    });
+    document.querySelectorAll('[data-i18n-html]').forEach(el => {
+      const key = el.dataset.i18nHtml;
+      if (dict[key] !== undefined) el.innerHTML = dict[key];
+    });
+    document.querySelectorAll('.ls-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.getAttribute('onclick').includes("'" + lang + "'"));
+    });
+  }
+
+  function setCurr(curr) {
+    currentCurr = curr;
+    localStorage.setItem('curr', curr);
+    document.getElementById('curr-sel').value = curr;
+  }
+
+  // Init on load
+  document.addEventListener('DOMContentLoaded', () => {
+    setLang(currentLang);
+    setCurr(currentCurr);
+  });
+
+  // ─── NAVBAR ─────────────────────────────────────────────────────
   // Navbar
   window.addEventListener('scroll', () => {
     document.querySelector('.navbar').classList.toggle('scrolled', window.scrollY > 60);
