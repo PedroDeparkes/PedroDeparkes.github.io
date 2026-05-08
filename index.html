@@ -398,8 +398,6 @@
     .ls-btn{background:none;border:none;color:rgba(255,255,255,.55);font-size:.78rem;font-weight:700;letter-spacing:.08em;cursor:pointer;padding:4px 6px;transition:color .2s;font-family:'Inter',sans-serif;}
     .ls-btn:hover,.ls-btn.active{color:var(--gold);}
     .ls-sep{color:rgba(255,255,255,.2);font-size:.65rem;pointer-events:none;}
-    .curr-sel{background:rgba(20,20,20,.8);border:1px solid var(--border);color:var(--gold);font-size:.82rem;font-weight:700;padding:6px 28px 6px 10px;border-radius:6px;cursor:pointer;font-family:'Inter',sans-serif;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23c9a84c'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 8px center;width:100%;}
-    .curr-sel option{background:#111;color:#fff;}
     @media(max-width:480px){
       .nav-dropdown{top:52px;right:3%;min-width:180px;padding:16px 18px;}
     }
@@ -455,12 +453,6 @@
       <span class="ls-sep">|</span>
       <button class="ls-btn" onclick="setLang('ar')">عربي</button>
     </div>
-    <select class="curr-sel" onchange="setCurr(this.value)" id="curr-sel">
-      <option value="AED">AED</option>
-      <option value="USD">USD</option>
-      <option value="EUR">EUR</option>
-      <option value="RUB">RUB</option>
-    </select>
   </div>
 </nav>
 
@@ -1029,10 +1021,7 @@
     }
   };
 
-  // ─── CURRENCY RATES (base: AED) ─────────────────────────────────
-  const RATES = { AED:1, USD:0.272, EUR:0.250, RUB:24.9 };
   let currentLang = localStorage.getItem('lang') || 'ru';
-  let currentCurr = localStorage.getItem('curr') || 'AED';
 
   function setLang(lang) {
     currentLang = lang;
@@ -1054,12 +1043,6 @@
     closeMenu();
   }
 
-  function setCurr(curr) {
-    currentCurr = curr;
-    localStorage.setItem('curr', curr);
-    document.getElementById('curr-sel').value = curr;
-  }
-
   // Burger menu
   function toggleMenu() {
     document.getElementById('burger').classList.toggle('open');
@@ -1073,7 +1056,6 @@
   // Init on load + click-outside to close
   document.addEventListener('DOMContentLoaded', () => {
     setLang(currentLang);
-    setCurr(currentCurr);
     document.addEventListener('click', e => {
       const burger = document.getElementById('burger');
       const dropdown = document.getElementById('nav-dropdown');
